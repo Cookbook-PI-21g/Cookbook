@@ -5,12 +5,14 @@ export default function Navbarheader() {
     return (
         <Navbar className="justify-content-between">
             <Container>
-                <Navbar.Brand>Кулинарная книга</Navbar.Brand>
+                <Navbar.Brand>
+                    <i class="bi bi-book me-2"></i>Кулинарная книга
+                </Navbar.Brand>
 
                 <Form className="d-flex">
                     <Form.Control type="text"></Form.Control>
                     <Button className="ms-1" variant="success">
-                        Поиск
+                        <i class="bi bi-search"></i>
                     </Button>
                 </Form>
                 <Nav>
