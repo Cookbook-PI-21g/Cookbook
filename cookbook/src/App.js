@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Navbarheader from "./components/Navbarheader";
 import FilterBar from "./components/FilterBar";
 import RecipeBox from "./components/RecipeBox";
-import { Container, Button } from "react-bootstrap";
 import AddRecipeModal from "./components/AddRecipeModal";
+import { Container, Button } from "react-bootstrap";
 
 function App() {
-    //  Массив рецептов
+    //  Массив рецептов (Нужно поменять структуру (и везде, где с такой же структурой работаем))
     const [recipes, setRecipes] = useState([
         {
             id: 1,
@@ -15,48 +15,13 @@ function App() {
             hours: 1,
             minutes: 1,
             ingr: 1,
-        },
-        {
-            id: 2,
-            title: "DavaPod Pizza 2",
-            portions: 2,
-            hours: 2,
-            minutes: 2,
-            ingr: 2,
-        },
-        {
-            id: 3,
-            title: "DavaPod Pizza 3",
-            portions: 3,
-            hours: 3,
-            minutes: 3,
-            ingr: 3,
-        },
-        {
-            id: 4,
-            title: "DavaPod Pizza 4",
-            portions: 4,
-            hours: 4,
-            minutes: 4,
-            ingr: 4,
-        },
-        {
-            id: 5,
-            title: "DavaPod Pizza 5",
-            portions: 5,
-            hours: 5,
-            minutes: 5,
-            ingr: 5,
-        },
-        {
-            id: 6,
-            title: "DavaPod Pizza 6",
-            portions: 6,
-            hours: 6,
-            minutes: 6,
-            ingr: 6,
+            description: "Cool colab with Da_Max",
         },
     ]);
+    // Фи-я получения нового рецепта из AddRecipeModal для создания рецепта setRecipe
+    const createRecipe = (newRecipe) => {
+        setRecipes([...recipes, newRecipe]);
+    };
 
     const [modalShow, setModalShow] = React.useState(false);
 
@@ -64,6 +29,7 @@ function App() {
         <div className="App">
             {/* Компонент навигационной панели */}
             <Navbarheader />
+            {/* Главный контейнер */}
             <Container style={{ maxWidth: 1000 }}>
                 <h1 className="mt-5 mb-5">
                     Все
@@ -72,21 +38,24 @@ function App() {
                 </h1>
                 {/* Компонент панели фильтрации */}
                 <FilterBar />
+                {/* Вывод всех элеменов рецептов (из массива) */}
                 <Container className="d-flex flex-wrap justify-content-around">
-                    {recipes.map((recipe) => (
-                        <RecipeBox post={recipe} key={recipe.id} />
+                    {recipes.map((recipe) => (  // Достаем все элементы из массива recipes
+                        <RecipeBox post={recipe} key={recipe.id} />     // Вывод поэлементно компонента RecipeBox c id рецепта в качестве ключа 
                     ))}
                 </Container>
-
+                {/* Кнопка создания рецепта */}
                 <Button variant="success" onClick={() => setModalShow(true)}>
                     <i class="bi bi-plus-lg"></i>
                 </Button>
-                <Button variant="warning">
-                    <i class="bi bi-star text-light"></i>
-                </Button>
+                {/* <Button variant="warning">
+                    <i class="bi bi-star text-light"></i>   // Кнопка "Избранное" (Если будем делать)
+                </Button> */}
+                {/* Модальное окно "Добавить" */}
                 <AddRecipeModal
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
+                    create={createRecipe} // Параметр с функцией создания
+                    show={modalShow} // Показ самого окна
+                    onHide={() => setModalShow(false)} // Удаление модального окна по выходу из него
                 />
             </Container>
         </div>

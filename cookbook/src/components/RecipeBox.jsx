@@ -2,8 +2,6 @@ import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 export default function RecipeBox(props) {
-    console.log(props);
-
     return (
         <Container
             className="mb-3 p-2 border border-warning"
