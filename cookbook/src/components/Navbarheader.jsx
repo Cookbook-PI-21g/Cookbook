@@ -16,8 +16,8 @@ export default function Navbarheader() {
                     </Button>
                 </Form>
                 <Nav>
-                    <Nav.Link href="">Вход</Nav.Link>
-                    <Nav.Link href="">Регистрация</Nav.Link>
+                    <Nav.Link href="">Загрузить</Nav.Link>
+                    <Nav.Link href="">Сохранить</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

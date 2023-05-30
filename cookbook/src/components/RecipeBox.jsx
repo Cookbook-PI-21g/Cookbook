@@ -3,12 +3,13 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 
 export default function RecipeBox(props) {
     console.log(props);
+
     return (
         <Container
             className="mb-3 p-2 border border-warning"
             style={{ width: 460 }}
         >
-            <Row>
+            <Row className="mb-1">
                 <Col className="p-0">
                     <Image
                         className="object-fit-cover w-100 h-100"

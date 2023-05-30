@@ -3,7 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 
 export default function FilterBar() {
     return (
-        <Container className="d-flex mb-5" >
+        <Container className="d-flex mb-5">
             <Form className="d-flex justify-content-between w-100 align-items-center">
                 <Form.Select className="m-1">
                     <option value="">Любая кухня</option>
