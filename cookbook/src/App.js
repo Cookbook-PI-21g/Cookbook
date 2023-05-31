@@ -23,6 +23,10 @@ function App() {
         setRecipes([...recipes, newRecipe]);
     };
 
+    const deleteRecipe = (recipe) => {
+        setRecipes(recipes.filter(r => r.id !== recipe.id))
+    }
+
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
@@ -41,7 +45,7 @@ function App() {
                 {/* Вывод всех элеменов рецептов (из массива) */}
                 <Container className="d-flex flex-wrap justify-content-around">
                     {recipes.map((recipe) => (  // Достаем все элементы из массива recipes
-                        <RecipeBox post={recipe} key={recipe.id} />     // Вывод поэлементно компонента RecipeBox c id рецепта в качестве ключа 
+                        <RecipeBox remove={deleteRecipe} recipe={recipe} key={recipe.id} />     // Вывод поэлементно компонента RecipeBox c id рецепта в качестве ключа 
                     ))}
                 </Container>
                 {/* Кнопка создания рецепта */}
