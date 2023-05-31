@@ -1,7 +1,13 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
-export default function RecipeBox(props) {
+export default function RecipeBox({remove, ...props}) {
+    const deleteRecipe = (e) => {
+        e.preventDefault();
+        console.log(props.recipe);
+        remove(props.recipe);
+    };
+
     return (
         <Container
             className="mb-3 p-2 border border-warning"
@@ -19,11 +25,14 @@ export default function RecipeBox(props) {
                         <small>категория, категория, категория</small>
                     </Row>
                     <Row>
-                        <h4>{props.post.title}</h4>
+                        <h4>{props.recipe.title}</h4>
                     </Row>
                 </Col>
             </Row>
-            <Row>{props.post.portions} порций | {props.post.hours} часа {props.post.minutes} мин | {props.post.ingr} ингридиентов</Row>
+            <Row>
+                {props.recipe.portions} порций | {props.recipe.hours} часа{" "}
+                {props.recipe.minutes} мин | {props.recipe.ingr} ингридиентов
+            </Row>
             <Row>
                 <Col>
                     <a href="">в избранное</a>
@@ -32,7 +41,9 @@ export default function RecipeBox(props) {
                     <a href="">поделиться</a>
                 </Col>
                 <Col>
-                    <a href="">удалить</a>
+                    <a onClick={deleteRecipe} href="">
+                        удалить
+                    </a>
                 </Col>
                 <Col></Col>
             </Row>
