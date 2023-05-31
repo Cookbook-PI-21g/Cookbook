@@ -14,7 +14,7 @@ function App() {
             portions: 1,
             hours: 1,
             minutes: 1,
-            ingr: 1,
+            ingr: [],
             description: "Cool colab with Da_Max",
         },
     ]);
@@ -50,7 +50,7 @@ function App() {
                 </Container>
                 {/* Кнопка создания рецепта */}
                 <Button variant="success" onClick={() => setModalShow(true)}>
-                    <i class="bi bi-plus-lg"></i>
+                    <i className="bi bi-plus-lg"></i>
                 </Button>
                 {/* <Button variant="warning">
                     <i class="bi bi-star text-light"></i>   // Кнопка "Избранное" (Если будем делать)

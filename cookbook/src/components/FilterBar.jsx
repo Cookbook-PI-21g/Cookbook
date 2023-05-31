@@ -19,7 +19,7 @@ export default function FilterBar() {
                 <Form.Select className="m-1">
                     <option value="">Любое меню</option>
                 </Form.Select>
-                <Button><i class="bi bi-arrow-right"></i></Button>
+                <Button><i className="bi bi-arrow-right"></i></Button>
             </Form>
         </Container>
     );

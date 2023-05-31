@@ -7,7 +7,7 @@ export default function AddRecipeModal({ create, ...props }) {
         portions: 1,
         hours: 2,
         minutes: 3,
-        ingr: 4,
+        ingr: [],
         description: "",
     });
     // Создание и возвращение newRecipe в App посредством параметра create
@@ -24,12 +24,16 @@ export default function AddRecipeModal({ create, ...props }) {
             portions: 1,
             hours: 2,
             minutes: 3,
-            ingr: 4,
+            ingr: [],
             description: "",
         });
         console.log(newRecipe);
         props.onHide();
     };
+
+    const newIngrInput = (i) => {
+        
+    }
 
     return (
         <Modal {...props} aria-labelledby="addRecipeModalLabel" centered>
@@ -57,14 +61,53 @@ export default function AddRecipeModal({ create, ...props }) {
                     </Form.Group> */}
                     <Form.Group className="mb-3" controlId="">
                         <Form.Label>Описание</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control
+                            value={recipe.description}
+                            onChange={(e) =>
+                                setRecipe({
+                                    ...recipe,
+                                    description: e.target.description,
+                                })
+                            }
+                            as="textarea"
+                            rows={3}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="">
+                        <Form.Label>Порции</Form.Label>
+                        <Form.Control
+                            value={recipe.portions}
+                            onChange={(e) =>
+                                setRecipe({
+                                    ...recipe,
+                                    portions: e.target.portions,
+                                })
+                            }
+                            type="number"
+                            placeholder="Кол-во порций..."
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="">
+                        <Form.Label>Ингридиенты</Form.Label>
+                        <Form.Control
+                            value={recipe.portions}
+                            onChange={(e) =>
+                                setRecipe({
+                                    ...recipe,
+                                    portions: e.target.portions,
+                                })
+                            }
+                            type="text"
+                            placeholder="Кол-во порций..."
+                        />
+                        {}
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
                         variant="primary"
                         type="submit"
-                        onClick={addNewRecipe}  // срабатывание ф-ии добавления по кнопке 
+                        onClick={addNewRecipe} // срабатывание ф-ии добавления по кнопке
                     >
                         Добавить
                     </Button>
