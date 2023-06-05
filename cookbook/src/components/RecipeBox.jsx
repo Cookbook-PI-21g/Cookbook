@@ -31,7 +31,7 @@ export default function RecipeBox({remove, ...props}) {
             </Row>
             <Row>
                 {props.recipe.portions} порций | {props.recipe.hours} часа{" "}
-                {props.recipe.minutes} мин | {props.recipe.ingr.length} ингридиентов
+                 мин |  ингридиентов
             </Row>
             <Row>
                 <Col>
