@@ -24,8 +24,8 @@ function App() {
     };
 
     const deleteRecipe = (recipe) => {
-        setRecipes(recipes.filter(r => r.id !== recipe.id))
-    }
+        setRecipes(recipes.filter((r) => r.id !== recipe.id));
+    };
 
     const [modalShow, setModalShow] = React.useState(false);
 
@@ -44,9 +44,17 @@ function App() {
                 <FilterBar />
                 {/* Вывод всех элеменов рецептов (из массива) */}
                 <Container className="d-flex flex-wrap justify-content-around">
-                    {recipes.map((recipe) => (  // Достаем все элементы из массива recipes
-                        <RecipeBox remove={deleteRecipe} recipe={recipe} key={recipe.id} />     // Вывод поэлементно компонента RecipeBox c id рецепта в качестве ключа 
-                    ))}
+                    {recipes.map(
+                        (
+                            recipe // Достаем все элементы из массива recipes
+                        ) => (
+                            <RecipeBox
+                                remove={deleteRecipe}
+                                recipe={recipe}
+                                key={recipe.id}
+                            /> // Вывод поэлементно компонента RecipeBox c id рецепта в качестве ключа
+                        )
+                    )}
                 </Container>
                 {/* Кнопка создания рецепта */}
                 <Button variant="success" onClick={() => setModalShow(true)}>
@@ -61,6 +69,8 @@ function App() {
                     show={modalShow} // Показ самого окна
                     onHide={() => setModalShow(false)} // Удаление модального окна по выходу из него
                 />
+
+                
             </Container>
         </div>
     );
