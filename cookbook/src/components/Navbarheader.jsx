@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Nav, Navbar, Button, Form } from "react-bootstrap";
+import LoginModal from "./LoginModal";
 
 export default function Navbarheader() {
+    const [modalShow, setModalShow] = React.useState(false);
     return (
         <Navbar className="justify-content-between">
             <Container>
@@ -16,8 +18,12 @@ export default function Navbarheader() {
                     </Button>
                 </Form>
                 <Nav>
-                    <Nav.Link href="">Загрузить</Nav.Link>
-                    <Nav.Link href="">Сохранить</Nav.Link>
+                    <Nav.Link onClick={() => setModalShow(true)}>Вход</Nav.Link>
+                    <LoginModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
+                    <Nav.Link href="">Регистрация</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
