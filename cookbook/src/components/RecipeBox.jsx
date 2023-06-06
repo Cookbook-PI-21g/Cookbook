@@ -1,11 +1,25 @@
-import React from "react";
+import axios from "axios";
+import { async } from "q";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
-export default function RecipeBox({remove, ...props}) {
+export default function RecipeBox({ id, ...props }) {
+    const [recipe, setRecipe] = useState({});
+
+    useEffect(() => {
+        async function getData() {
+            axios
+                .get("http://26.65.125.199:8000/recipes/getById/4")
+                .then((response) => {
+                    setRecipe(response.data.recipe);
+                });
+        }
+
+        getData();
+    }, []);
+
+    console.log(recipe);
     const deleteRecipe = (e) => {
-        e.preventDefault();
-        console.log(props.recipe);
-        remove(props.recipe);
     };
 
     return (
@@ -22,17 +36,14 @@ export default function RecipeBox({remove, ...props}) {
                 </Col>
                 <Col className="p-0">
                     <Row>
-                        <small>категория, категория, категория</small>
+                        <small>{recipe.category}</small>
                     </Row>
                     <Row>
-                        <h4>{props.recipe.title}</h4>
+                        <h4>{recipe.title}</h4>
                     </Row>
                 </Col>
             </Row>
-            <Row>
-                {props.recipe.portions} порций | {props.recipe.hours} часа{" "}
-                 мин |  ингридиентов
-            </Row>
+            <Row>{recipe.portions} порций | {recipe.hours} часа {recipe.minutes} мин | {recipe.products.length} ингридиентов</Row>
             <Row>
                 <Col>
                     <a href="">в избранное</a>

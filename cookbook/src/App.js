@@ -4,6 +4,8 @@ import FilterBar from "./components/FilterBar";
 import RecipeBox from "./components/RecipeBox";
 import AddRecipeModal from "./components/AddRecipeModal";
 import { Container, Button } from "react-bootstrap";
+import axios from "axios";
+import cookie from "js-cookie";
 
 function App() {
     //  Массив рецептов (Нужно поменять структуру (и везде, где с такой же структурой работаем))
@@ -26,6 +28,16 @@ function App() {
     const deleteRecipe = (recipe) => {
         setRecipes(recipes.filter((r) => r.id !== recipe.id));
     };
+
+    const [accessToken, setAccessToken] = useState();
+
+    console.log(localStorage.getItem("token"));
+    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("token")}`;
+
+    // getAccessToken = (accessToken) => {
+    //     setAccessToken()
+    //     axios.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`;
+    // }
 
     const [modalShow, setModalShow] = React.useState(false);
 
@@ -69,8 +81,6 @@ function App() {
                     show={modalShow} // Показ самого окна
                     onHide={() => setModalShow(false)} // Удаление модального окна по выходу из него
                 />
-
-                
             </Container>
         </div>
     );
