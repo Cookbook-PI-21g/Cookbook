@@ -44,6 +44,7 @@ export default function LoginModal(props) {
                 
             })
             .catch((error) => console.error(error));
+        props.onHide();
     };
     return (
         <Modal {...props} aria-labelledby="addRecipeModalLabel" centered>

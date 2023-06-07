@@ -8,6 +8,7 @@ export default function AddRecipeModal({ create, ...props }) {
         title: "",
         portions: 1,
         hours: 1,
+        minutes: 1,
         description: "",
         ingredients: [],
         actions: [],
