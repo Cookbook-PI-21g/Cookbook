@@ -9,18 +9,18 @@ export default function RecipeBox({ id, ...props }) {
     useEffect(() => {
         async function getData() {
             axios
-                .get("http://26.65.125.199:8000/recipes/getById/4")
+                .get(`http://26.65.125.199:8000/recipes/getById/${id}`)
                 .then((response) => {
                     setRecipe(response.data.recipe);
-                });
+                })
+                .catch((error) => console.error(error));
         }
 
         getData();
     }, []);
 
-    console.log(recipe);
-    const deleteRecipe = (e) => {
-    };
+    // console.log(recipe);
+    const deleteRecipe = (e) => {};
 
     return (
         <Container
@@ -43,7 +43,12 @@ export default function RecipeBox({ id, ...props }) {
                     </Row>
                 </Col>
             </Row>
-            <Row>{recipe.portions} порций | {recipe.hours} часа {recipe.minutes} мин | {recipe.products.length} ингридиентов</Row>
+            <Row>
+                {/* {recipe.portions} порций | {recipe.hours} часа {recipe.minutes}{" "}
+                мин | {recipe.products.length} ингридиентов */}
+                {recipe.portions} порций | {recipe.hours} часа {recipe.minutes}{" "}
+                мин | ингридиентов
+            </Row>
             <Row>
                 <Col>
                     <a href="">в избранное</a>
