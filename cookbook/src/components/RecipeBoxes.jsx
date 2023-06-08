@@ -7,8 +7,7 @@ export default function RecipeBoxes() {
     const [ids, setIds] = useState([]);
     //const controller = new AbortController();
     useEffect(() => {
-        console.log("Сработало раньше, чем рендер? Нет!")
-        async function getData() {
+        const getData = async () => {
             axios
                 .get("http://26.65.125.199:8000/recipes/getLast")
                 .then((response) => {
@@ -22,8 +21,8 @@ export default function RecipeBoxes() {
         
     }, []);
 
-    console.log("Массив рецептов:");
-    console.log(ids);
+    // console.log("Массив рецептов:");
+    // console.log(ids);
 
     return (
         <Container className="d-flex flex-wrap justify-content-around">
