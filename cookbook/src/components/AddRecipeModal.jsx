@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import IngrInput from "./IngrInput";
 import ActionsInput from "./ActionsInput";
 import axios from "axios";
+import ProductsInputBox from "./ProductsInputBox";
+
 
 export default function AddRecipeModal({ create, ...props }) {
     const [recipe, setRecipe] = useState({
@@ -32,30 +33,7 @@ export default function AddRecipeModal({ create, ...props }) {
         const newRecipe = recipe;
         console.log(newRecipe);
         await axios
-            .post("http://26.65.125.199:8000/recipes/create", newRecipe
-            // {
-            //     newRecipe,
-            //     // title: "Тестовый запрос с клиента 2",
-            //     // description:
-            //     //     "Тестовый запрос с клиента Тестовый запрос с клиента Тестовый запрос с клиента",
-            //     // portions: 2,
-            //     // hours: 22,
-            //     // minutes: 3,
-            //     // category_id: 4,
-            //     // products: [
-            //     //     {
-            //     //         id: 4,
-            //     //         count: 5,
-            //     //         unit_id: 2,
-            //     //     },
-            //     //     {
-            //     //         id: 2,
-            //     //         count: 1000,
-            //     //         unit_id: 1,
-            //     //     },
-            //     // ],
-            // }
-            )
+            .post("http://26.65.125.199:8000/recipes/create", newRecipe)
             .then((response) => {
                 console.log(response);
             })
@@ -151,13 +129,11 @@ export default function AddRecipeModal({ create, ...props }) {
                             rows={3}
                         />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3">
+                    <Form.Group className="mb-3">
                         <Form.Label>Ингридиенты</Form.Label>
-                        <IngrInput />
-                        <Button variant="success" className="btn-sm">
-                            <i className="bi bi-plus-lg"></i>
-                        </Button>
-                    </Form.Group> */}
+                        <ProductsInputBox></ProductsInputBox>
+                        
+                    </Form.Group>
                     {/* <Form.Group className="mb-3" controlId="actions">
                         <Form.Label>Шаги</Form.Label>
                         <ActionsInput />
