@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import cookie from "js-cookie";
 
 export default function LoginModal(props) {
     const [token, setToken] = useState();
@@ -17,7 +18,7 @@ export default function LoginModal(props) {
             .then((response) => {
                 const csrfToken = response.data.token;
 
-                console.log(csrfToken);
+                // console.log(csrfToken);
 
                 const formData = new URLSearchParams();
                 formData.append("email", userInfo.email);
@@ -36,10 +37,14 @@ export default function LoginModal(props) {
                         formData.toString(),
                         config
                     )
+                    .then((response) => {console.log(response.data);
+                    console.log("акцесс токен: " + response.data.access_token); 
+                    localStorage.setItem("token", response.data.access_token)})
                     .catch((error) => console.error(error));
-                    axios.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`;
+                
             })
             .catch((error) => console.error(error));
+        props.onHide();
     };
     return (
         <Modal {...props} aria-labelledby="addRecipeModalLabel" centered>

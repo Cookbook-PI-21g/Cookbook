@@ -1,36 +1,64 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import IngrInput from "./IngrInput";
 import ActionsInput from "./ActionsInput";
+import axios from "axios";
+import ProductsInputBox from "./ProductsInputBox";
+
 
 export default function AddRecipeModal({ create, ...props }) {
     const [recipe, setRecipe] = useState({
-        title: "",
-        portions: 1,
-        hours: 1,
-        description: "",
-        ingredients: [],
-        actions: [],
+        title: "Тестовый запрос с клиента 3",
+        description:
+            "Тестовый запрос с клиента Тестовый запрос с клиента Тестовый запрос с клиента",
+        portions: 2,
+        hours: 22,
+        minutes: 3,
+        category_id: 4,
+        products: [
+            {
+                id: 4,
+                count: 5,
+                unit_id: 2,
+            },
+            {
+                id: 2,
+                count: 1000,
+                unit_id: 1,
+            },
+        ],
     });
 
-    // Создание и возвращение newRecipe в App посредством параметра create
-    const addNewRecipe = (e) => {
-        e.preventDefault(); // Всем знакомо
-        const newRecipe = {
-            ...recipe,
-            id: Date.now(),
-        };
-        create(newRecipe);
+    const createRecipe = async (e) => {
+        e.preventDefault();
+        const newRecipe = recipe;
+        console.log(newRecipe);
+        await axios
+            .post("http://26.65.125.199:8000/recipes/create", newRecipe)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => console.error(error));
+
         setRecipe({
-            // Обнуление состояния
             title: "",
             portions: 1,
             hours: 1,
+            minutes: 1,
             description: "",
-            ingredients: [],
+            products: [
+                {
+                    id: 4,
+                    count: 5,
+                    unit_id: 2,
+                },
+                {
+                    id: 2,
+                    count: 1000,
+                    unit_id: 1,
+                },
+            ],
             actions: [],
         });
-        console.log(newRecipe);
         props.onHide();
     };
 
@@ -43,7 +71,7 @@ export default function AddRecipeModal({ create, ...props }) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Group className="mb-3" controlId="title">
+                    <Form.Group className="mb-3">
                         <Form.Label>Название блюда</Form.Label>
                         <Form.Control
                             value={recipe.title}
@@ -55,7 +83,7 @@ export default function AddRecipeModal({ create, ...props }) {
                         />
                     </Form.Group>
                     <div className="row justify-content-center mb-3">
-                        <div className="col-auto" controlId="portions">
+                        <div className="col-auto">
                             <Form.Label>Порции</Form.Label>
                             <Form.Control
                                 value={recipe.portions}
@@ -86,40 +114,39 @@ export default function AddRecipeModal({ create, ...props }) {
                             />
                         </div>
                     </div>
-                    <Form.Group className="mb-3" controlId="description">
+                    <Form.Group className="mb-3">
                         <Form.Label>Описание</Form.Label>
                         <Form.Control
                             value={recipe.description}
                             onChange={(e) =>
                                 setRecipe({
                                     ...recipe,
-                                    description: e.target.description,
+                                    description: e.target.value,
                                 })
                             }
+                            type="text"
                             as="textarea"
                             rows={3}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="ingredients">
+                    <Form.Group className="mb-3">
                         <Form.Label>Ингридиенты</Form.Label>
-                        <IngrInput/>
-                        <Button variant="success" className="btn-sm">
-                            <i className="bi bi-plus-lg"></i>
-                        </Button>
+                        <ProductsInputBox></ProductsInputBox>
+                        
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="actions">
+                    {/* <Form.Group className="mb-3" controlId="actions">
                         <Form.Label>Шаги</Form.Label>
                         <ActionsInput />
                         <Button variant="success" className="btn-sm">
                             <i className="bi bi-plus-lg"></i>
                         </Button>
-                    </Form.Group>
+                    </Form.Group> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
                         variant="primary"
                         type="submit"
-                        onClick={addNewRecipe} // срабатывание ф-ии добавления по кнопке
+                        onClick={createRecipe} // срабатывание ф-ии добавления по кнопке
                     >
                         Добавить
                     </Button>
