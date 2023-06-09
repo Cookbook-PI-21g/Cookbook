@@ -6,8 +6,8 @@ import cookie from "js-cookie";
 export default function LoginModal(props) {
     const [token, setToken] = useState();
     const [userInfo, setUserInfo] = useState({
-        email: "",
-        password: "",
+        email: "Denis@denis.den",
+        password: "denisdenis",
     });
     const login = (e) => {
         console.log(userInfo);
@@ -53,7 +53,7 @@ export default function LoginModal(props) {
                     <Modal.Title id="">Авторизация</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Group className="mb-3" controlId="title">
+                    <Form.Group className="mb-3">
                         <Form.Label>E-mail</Form.Label>
                         <Form.Control
                             value={userInfo.email}
@@ -67,7 +67,7 @@ export default function LoginModal(props) {
                             type="email"
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="description">
+                    <Form.Group className="mb-3">
                         <Form.Label>Пароль</Form.Label>
                         <Form.Control
                             value={userInfo.password}
