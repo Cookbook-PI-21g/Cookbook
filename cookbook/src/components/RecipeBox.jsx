@@ -1,7 +1,7 @@
 import axios from "axios";
 import { async } from "q";
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Badge } from "react-bootstrap";
 
 let imgPlaceholder = [
     "../pics/1.jpg",
@@ -13,10 +13,11 @@ let imgPlaceholder = [
     "../pics/8.jpg",
 ];
 
-export default function RecipeBox({ id, ...props }) {
+export default function RecipeBox({ remove, allowDelete, id, ...props }) {
     const [recipe, setRecipe] = useState({});
 
-    let randomImg = imgPlaceholder[Math.floor(Math.random() * imgPlaceholder.length)];
+    let randomImg =
+        imgPlaceholder[Math.floor(Math.random() * imgPlaceholder.length)];
     // console.log(randomImg)
 
     useEffect(() => {
@@ -32,21 +33,16 @@ export default function RecipeBox({ id, ...props }) {
         getData();
     }, []);
 
-    // console.log(recipe);
-    const deleteRecipe = (e) => {
-        
-    };
-
     return (
         <Container
-            className="mb-3 p-2 border border-warning rounded-3"
+            className="mb-3 p-2 border border-secondary rounded-3"
             style={{ width: 460 }}
         >
             <Row className="mb-1">
                 <Col className="p-0">
                     <Image
                         className="object-fit-cover w-100 h-100 rounded"
-                        src={randomImg}
+                        src={`../pics/${Math.floor(Math.random() * 24)}.png`}
                     ></Image>
                 </Col>
                 <Col className="p-0">
@@ -54,7 +50,7 @@ export default function RecipeBox({ id, ...props }) {
                         <small>{recipe.category}</small>
                     </Row>
                     <Row>
-                        <h3>{recipe.title}</h3>
+                        <h3 className="fw-bold">{recipe.title}</h3>
                     </Row>
                     <Row>
                         <small className="fst-italic">
@@ -64,21 +60,29 @@ export default function RecipeBox({ id, ...props }) {
                 </Col>
             </Row>
             <Row>
-                {recipe.portions} порций | {recipe.hours} часа {recipe.minutes}{" "}
-                мин | {} ингридиентов
+                {recipe.portions} порций | {recipe.hours} часа {recipe.minutes} мин.
             </Row>
             <Row>
-                <Col>
-                    <a href="">в избранное</a>
-                </Col>
-                <Col>
-                    <a onClick={deleteRecipe} href="">
-                        удалить
-                    </a>
-                </Col>
-                <Col></Col>
-                <Col></Col>
+                <Row className="fw-semibold">Ингридиенты:</Row>
+                {recipe.products ? (
+                    recipe.products.map((product) => (
+                        <Row className="lh-sm">
+                            <small>
+                                {product.name} - {product.count} {product.unit}
+                            </small>
+                        </Row>
+                    ))
+                ) : (
+                    <Row></Row>
+                )}
             </Row>
+            {allowDelete == true ? (
+                <Row className="align-self-end">
+                    <a className="text-danger text-end" onClick={() => remove(recipe)}>Удалить</a>
+                </Row>
+            ) : (
+                <Row></Row>
+            )}
         </Container>
     );
 }

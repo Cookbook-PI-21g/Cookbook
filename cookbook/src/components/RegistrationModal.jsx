@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 
 export default function RegistrationModal(props) {
     const [regInfo, setRegInfo] = useState({
@@ -25,7 +26,7 @@ export default function RegistrationModal(props) {
                 .catch((error) => console.error(error));
         };
         getData();
-    });
+    }, []);
 
     const registration = (e) => {
         console.log(regInfo);
@@ -53,7 +54,7 @@ export default function RegistrationModal(props) {
                         <Form.Control
                             value={regInfo.name}
                             onChange={(e) =>
-                                setUserInfo({
+                                setRegInfo({
                                     ...regInfo,
                                     name: e.target.value,
                                 })
@@ -67,7 +68,7 @@ export default function RegistrationModal(props) {
                         <Form.Control
                             value={regInfo.surname}
                             onChange={(e) =>
-                                setUserInfo({
+                                setRegInfo({
                                     ...regInfo,
                                     surname: e.target.value,
                                 })
@@ -81,7 +82,7 @@ export default function RegistrationModal(props) {
                         <Form.Control
                             value={regInfo.email}
                             onChange={(e) =>
-                                setUserInfo({
+                                setRegInfo({
                                     ...regInfo,
                                     email: e.target.value,
                                 })
@@ -95,7 +96,7 @@ export default function RegistrationModal(props) {
                         <Form.Control
                             value={regInfo.password}
                             onChange={(e) =>
-                                setUserInfo({
+                                setRegInfo({
                                     ...regInfo,
                                     password: e.target.value,
                                 })
@@ -109,7 +110,7 @@ export default function RegistrationModal(props) {
                         <Form.Control
                             value={regInfo.password_confirmation}
                             onChange={(e) =>
-                                setUserInfo({
+                                setRegInfo({
                                     ...regInfo,
                                     password_confirmation: e.target.value,
                                 })

@@ -3,7 +3,7 @@ import Navbarheader from "./components/Navbarheader";
 import FilterBar from "./components/FilterBar";
 
 import AddRecipeModal from "./components/AddRecipeModal";
-import { Container, Button } from "react-bootstrap";
+import { Alert, Container, Button } from "react-bootstrap";
 import axios from "axios";
 import RecipeBoxes from "./components/RecipeBoxes";
 
@@ -12,15 +12,8 @@ function App() {
     axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
         "token"
     )}`;
-
+    
     const [modalShow, setModalShow] = useState(false);
-
-    
-    //const controller = new AbortController();
-
-    
-
-    
 
     return (
         <div className="App">
@@ -35,7 +28,8 @@ function App() {
                 </h1>
                 {/* Компонент панели фильтрации */}
                 <FilterBar />
-                <RecipeBoxes/>
+                {localStorage.getItem("user") ? (<RecipeBoxes/>) : (<Alert variant="danger">Необходимо авторизоваться загрузки рецептов.</Alert>)}
+                
                 {/* Кнопка создания рецепта */}
                 <Button variant="success" onClick={() => setModalShow(true)}>
                     <i className="bi bi-plus-lg"></i>

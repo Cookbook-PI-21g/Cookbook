@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
-import cookie from "js-cookie";
 
-export default function LoginModal(props) {
-    const [token, setToken] = useState();
+export default function LoginModal({ get, ...props }) {
     const [userInfo, setUserInfo] = useState({
         email: "Denis@denis.den",
         password: "denisdenis",
@@ -37,11 +35,18 @@ export default function LoginModal(props) {
                         formData.toString(),
                         config
                     )
-                    .then((response) => {console.log(response.data);
-                    console.log("акцесс токен: " + response.data.access_token); 
-                    localStorage.setItem("token", response.data.access_token)})
+                    .then((response) => {
+                        console.log(response.data);
+                        console.log(
+                            "акцесс токен: " + response.data.access_token
+                        );
+                        localStorage.setItem(
+                            "token",
+                            response.data.access_token
+                        );
+                        localStorage.setItem("user", JSON.stringify(userInfo));
+                    })
                     .catch((error) => console.error(error));
-                
             })
             .catch((error) => console.error(error));
         props.onHide();
