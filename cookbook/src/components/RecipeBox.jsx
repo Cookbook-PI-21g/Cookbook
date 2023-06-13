@@ -3,22 +3,8 @@ import { async } from "q";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Badge } from "react-bootstrap";
 
-let imgPlaceholder = [
-    "../pics/1.jpg",
-    "../pics/3.png",
-    "../pics/4.jpg",
-    "../pics/5.jpg",
-    "../pics/6.jpg",
-    "../pics/7.jpg",
-    "../pics/8.jpg",
-];
-
 export default function RecipeBox({ remove, allowDelete, id, ...props }) {
     const [recipe, setRecipe] = useState({});
-
-    let randomImg =
-        imgPlaceholder[Math.floor(Math.random() * imgPlaceholder.length)];
-    // console.log(randomImg)
 
     useEffect(() => {
         async function getData() {
@@ -41,7 +27,7 @@ export default function RecipeBox({ remove, allowDelete, id, ...props }) {
             <Row className="mb-1">
                 <Col className="p-0">
                     <Image
-                        className="object-fit-cover w-100 h-100 rounded"
+                        className="object-fit-cover w-100 rounded"
                         src={`../pics/${Math.floor(Math.random() * 24)}.png`}
                     ></Image>
                 </Col>

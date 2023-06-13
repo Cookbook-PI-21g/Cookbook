@@ -8,35 +8,67 @@ import axios from "axios";
 import RecipeBoxes from "./components/RecipeBoxes";
 
 function App() {
-    // console.log(localStorage.getItem("token"));
     axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
         "token"
     )}`;
+
+    useEffect(() => {
+        const getData = async () => {
+            axios
+                .get("http://26.65.125.199:8000/categories/get")
+                .then((response) => {
+                    // console.log("Результат получения категорий:");
+                    // console.log(response.data.data);
+                    // Преобразование массива данных в объект для удобства доступа по id
+                    const categoriesIdToName = response.data.data.map(
+                        (item) => {
+                            return {
+                                id: item.id,
+                                name: item.name,
+                            };
+                        }
+                    );
+                    // response.data.data.forEach((item) => {
+                    //     categories[item.id] = item.name;
+                    // });
+                    // Сохранение объекта в localStorage
+                    localStorage.setItem(
+                        "categories",
+                        JSON.stringify(categoriesIdToName)
+                    );
+                    console.log(JSON.parse(localStorage.getItem("categories")));
+                })
+                .catch((error) => console.error(error));
+        };
+        getData();
+    }, []);
     
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <div className="App">
-            {/* Компонент навигационной панели */}
             <Navbarheader />
-            {/* Главный контейнер */}
             <Container style={{ maxWidth: 1000 }}>
                 <h1 className="mt-5 mb-5">
                     Все
                     <br />
                     Рецепты
                 </h1>
-                {/* Компонент панели фильтрации */}
-                <FilterBar />
-                {localStorage.getItem("user") ? (<RecipeBoxes/>) : (<Alert variant="danger">Необходимо авторизоваться загрузки рецептов.</Alert>)}
-                
-                {/* Кнопка создания рецепта */}
+                {localStorage.getItem("user") ? (
+                    <RecipeBoxes />
+                ) : (
+                    <Alert variant="danger">
+                        Необходимо авторизоваться загрузки рецептов.
+                    </Alert>
+                )}
+
                 <Button variant="success" onClick={() => setModalShow(true)}>
                     <i className="bi bi-plus-lg"></i>
                 </Button>
-                <AddRecipeModal // Параметр с функцией создания
-                    show={modalShow} // Показ самого окна
-                    onHide={() => setModalShow(false)} // Удаление модального окна по выходу из него
+                <AddRecipeModal
+                    //categories={categories}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
                 />
             </Container>
         </div>

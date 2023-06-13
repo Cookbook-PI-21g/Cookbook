@@ -1,32 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import ActionsInput from "./ActionsInput";
 import axios from "axios";
 import ProductsInputBox from "./ProductsInputBox";
 
-
 export default function AddRecipeModal({ create, ...props }) {
     const [recipe, setRecipe] = useState({
-        title: "Тестовый запрос с клиента 3",
+        title: "Карри с кокосовым молоком и куриной грудкой",
         description:
-            "Тестовый запрос с клиента Тестовый запрос с клиента Тестовый запрос с клиента",
-        portions: 2,
-        hours: 22,
+            "Карри с кокосовым молоком и куриной грудкой - Ароматное и пикантное блюдо, приготовленное на основе куриной грудки, кокосового молока и разнообразных пряностей. Отлично сочетается с ароматным рисом.",
+        portions: 1,
+        hours: 2,
         minutes: 3,
-        category_id: 4,
+        category_id: 1,
         products: [
             {
-                id: 4,
+                id: 201,
                 count: 5,
                 unit_id: 2,
             },
             {
-                id: 2,
+                id: 207,
+                count: 1000,
+                unit_id: 1,
+            },
+            {
+                id: 205,
+                count: 5,
+                unit_id: 2,
+            },
+            {
+                id: 211,
+                count: 1000,
+                unit_id: 1,
+            },
+            {
+                id: 213,
+                count: 5,
+                unit_id: 2,
+            },
+            {
+                id: 221,
                 count: 1000,
                 unit_id: 1,
             },
         ],
     });
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        const storedCategories = JSON.parse(localStorage.getItem("categories"));
+        setCategories(storedCategories || []);
+    }, []);
+    //console.log(categories);
+    //setCategories(JSON.parse(localStorage.getItem("categories")));
 
     const createRecipe = async (e) => {
         e.preventDefault();
@@ -45,14 +72,35 @@ export default function AddRecipeModal({ create, ...props }) {
             hours: 1,
             minutes: 1,
             description: "",
+            category_id: "",
             products: [
                 {
-                    id: 4,
+                    id: 201,
                     count: 5,
                     unit_id: 2,
                 },
                 {
-                    id: 2,
+                    id: 207,
+                    count: 1000,
+                    unit_id: 1,
+                },
+                {
+                    id: 205,
+                    count: 5,
+                    unit_id: 2,
+                },
+                {
+                    id: 211,
+                    count: 1000,
+                    unit_id: 1,
+                },
+                {
+                    id: 213,
+                    count: 5,
+                    unit_id: 2,
+                },
+                {
+                    id: 221,
                     count: 1000,
                     unit_id: 1,
                 },
@@ -82,6 +130,25 @@ export default function AddRecipeModal({ create, ...props }) {
                             placeholder="Ваше название..."
                         />
                     </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Select
+                            value={recipe.category_id}
+                            onChange={(e) => {
+                                setRecipe({
+                                    ...recipe,
+                                    category_id: e.target.value,
+                                })
+                                }
+                            }
+                        >
+                            {categories.map((category) => 
+                            (
+                                <option value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
                     <div className="row justify-content-center mb-3">
                         <div className="col-auto">
                             <Form.Label>Порции</Form.Label>
@@ -90,7 +157,7 @@ export default function AddRecipeModal({ create, ...props }) {
                                 onChange={(e) =>
                                     setRecipe({
                                         ...recipe,
-                                        portions: e.target.portions,
+                                        portions: e.target.value,
                                     })
                                 }
                                 type="number"
@@ -99,13 +166,28 @@ export default function AddRecipeModal({ create, ...props }) {
                             />
                         </div>
                         <div className="col-auto">
-                            <Form.Label>Время</Form.Label>
+                            <Form.Label>Часы</Form.Label>
                             <Form.Control
                                 value={recipe.hours}
                                 onChange={(e) =>
                                     setRecipe({
                                         ...recipe,
-                                        portions: e.target.hours,
+                                        hours: e.target.value,
+                                    })
+                                }
+                                type="number"
+                                placeholder="Кол-во часов..."
+                                size="sm"
+                            />
+                        </div>
+                        <div className="col-auto">
+                            <Form.Label>Минуты</Form.Label>
+                            <Form.Control
+                                value={recipe.minutes}
+                                onChange={(e) =>
+                                    setRecipe({
+                                        ...recipe,
+                                        minutes: e.target.value,
                                     })
                                 }
                                 type="number"
@@ -129,11 +211,10 @@ export default function AddRecipeModal({ create, ...props }) {
                             rows={3}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3">
+                    {/* <Form.Group className="mb-3">
                         <Form.Label>Ингридиенты</Form.Label>
                         <ProductsInputBox></ProductsInputBox>
-                        
-                    </Form.Group>
+                    </Form.Group> */}
                     {/* <Form.Group className="mb-3" controlId="actions">
                         <Form.Label>Шаги</Form.Label>
                         <ActionsInput />
